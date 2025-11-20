@@ -26,6 +26,10 @@ At its core, ScoreLabs introduces a **unique sandboxing and simulation system** 
 
 ## 🚀 Quick Start
 
+### Download & Build
+
+See [HOWTODOWNLOAD.txt](HOWTODOWNLOAD.txt) for detailed download and build instructions.
+
 ### On Arch Linux
 
 ```bash
