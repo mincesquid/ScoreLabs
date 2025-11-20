@@ -45,6 +45,16 @@ ScoreLabs is structured as follows:
 # Note: Some commands require Linux
 ```
 
+## Quickly find your project on macOS
+
+If you have trouble finding the project folder, use one of these quick options:
+
+- Create a symlink on the Desktop: `ln -s $(pwd) ~/Desktop/ScoreLabs`
+- Create a Finder alias (right-click the folder → Make Alias), or use `scripts/create_desktop_shortcut.sh --alias`
+- Add the project to the Finder sidebar or the Dock for fast access
+
+See `docs/desktop_shortcuts.md` for detailed steps and Automator/Alfred suggestions.
+
 ### Working on Documentation
 
 All documentation is in Markdown under `docs/`:

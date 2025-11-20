@@ -59,6 +59,17 @@ docker run -it --privileged \
   bash -c "pacman -Syu --noconfirm archiso && cd /workspace && ./build.sh"
 ```
 
+### Quick start (advanced users)
+
+If you're familiar with building and testing on Linux, use this condensed quick start:
+
+```bash
+cd scorelabs
+docker-compose up --build scorelabs-build
+```
+
+For more advanced quick tips (scanning, masscan helper, starting labs), see `docs/quickstart-advanced.md`.
+
 ### Using Podman or Docker on macOS
 
 If you see an error such as:
