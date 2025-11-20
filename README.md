@@ -17,6 +17,7 @@ At its core, ScoreLabs introduces a **unique sandboxing and simulation system** 
 ## ✨ Key Features
 
 - **Arch Linux Foundation**: Rolling release model with cutting-edge packages and performance
+- **KDE Plasma Desktop**: Custom "Glitch Security" theme with professional cyberpunk aesthetic
 - **Comprehensive Security Toolkit**: Pre-configured tools for analysis, testing, and defense
 - **Advanced Sandboxing**: Isolated environments for safe experimentation
 - **Lab Scenarios**: Real-world simulation exercises for skill development
@@ -25,14 +26,24 @@ At its core, ScoreLabs introduces a **unique sandboxing and simulation system** 
 
 ## 🚀 Quick Start
 
+### On Arch Linux
+
 ```bash
 # Build the ISO
 ./build.sh
-
-# Or use the package manager to install specific tool suites
-scorelabs-cli install --suite forensics
-scorelabs-cli install --suite pentesting
 ```
+
+### On macOS
+
+```bash
+# Build using Docker
+./scripts/build-in-container.sh
+
+# Test in VM
+./scripts/test-in-vm.sh
+```
+
+See [Building on macOS](docs/development/building-on-macos.md) for detailed instructions.
 
 ## 📚 Documentation
 

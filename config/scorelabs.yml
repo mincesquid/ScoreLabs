@@ -19,8 +19,8 @@ user:
 # Desktop environment
 desktop:
   enabled: true
-  environment: "xfce4"
-  display_manager: "lightdm"
+  environment: "plasma"
+  display_manager: "sddm"
   theme: "scorelabs-dark"
   
 # Security settings

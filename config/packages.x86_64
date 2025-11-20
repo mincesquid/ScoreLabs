@@ -136,11 +136,15 @@ virt-manager
 docker
 docker-compose
 
-# Desktop Environment (lightweight option)
-xfce4
-xfce4-goodies
-lightdm
-lightdm-gtk-greeter
+# Desktop Environment (KDE Plasma)
+plasma-meta
+kde-applications-meta
+kvantum
+latte-dock
+kwin-effects-cube
+kwin-scripts-forceblur
+papirus-icon-theme
+sddm
 
 # Display Server
 xorg-server
@@ -182,6 +186,15 @@ rkhunter
 chkrootkit
 clamav
 fail2ban
+audit
+aide
+firejail
+apparmor
+unhide
+tiger
+checksec
+ttf-fira-code
+ttf-hack
 
 # Encryption
 veracrypt

@@ -66,3 +66,14 @@ echo "Configuration applied successfully!"
 echo ""
 echo "Note: These settings will be applied on the live system."
 echo "To apply now: sudo sysctl --system"
+
+# Run KDE desktop setup if scripts exist
+if [ -f /root/security-kde-setup.sh ]; then
+    echo "Running KDE security setup..."
+    bash /root/security-kde-setup.sh
+fi
+
+if [ -f /root/advanced-kde-config.sh ]; then
+    echo "Running advanced KDE configuration..."
+    bash /root/advanced-kde-config.sh
+fi

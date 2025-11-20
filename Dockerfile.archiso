@@ -1,0 +1,23 @@
+# Dockerfile for building ScoreLabs ISO in a container
+FROM archlinux:latest
+
+# Update system and install build dependencies
+RUN pacman -Syu --noconfirm && \
+    pacman -S --noconfirm \
+    archiso \
+    git \
+    base-devel \
+    squashfs-tools \
+    sudo
+
+# Set up working directory
+WORKDIR /scorelabs
+
+# Copy project files
+COPY . /scorelabs/
+
+# Set permissions
+RUN chmod +x /scorelabs/build.sh
+
+# Default command
+CMD ["/bin/bash"]

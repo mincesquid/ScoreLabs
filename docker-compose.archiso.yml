@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  archiso-builder:
+    build:
+      context: .
+      dockerfile: Dockerfile.archiso
+    image: scorelabs-builder:latest
+    container_name: scorelabs-builder
+    privileged: true
+    volumes:
+      - ./:/scorelabs
+      - ./build/output:/scorelabs/build/output
+    working_dir: /scorelabs
+    command: /bin/bash
+    stdin_open: true
+    tty: true

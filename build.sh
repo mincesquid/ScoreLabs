@@ -88,6 +88,12 @@ configure_profile() {
         cp -r "${CONFIG_DIR}/airootfs/"* "${PROFILE_DIR}/airootfs/" 2>/dev/null || true
     fi
     
+    # Copy customize script
+    if [ -f "${CONFIG_DIR}/customize_airootfs.sh" ]; then
+        cp "${CONFIG_DIR}/customize_airootfs.sh" "${PROFILE_DIR}/"
+        chmod +x "${PROFILE_DIR}/customize_airootfs.sh"
+    fi
+    
     # Update profile configuration
     sed -i "s/iso_name=.*/iso_name=\"${ISO_NAME}\"/" "${PROFILE_DIR}/profiledef.sh" 2>/dev/null || true
     sed -i "s/iso_label=.*/iso_label=\"${ISO_LABEL}\"/" "${PROFILE_DIR}/profiledef.sh" 2>/dev/null || true

@@ -9,11 +9,14 @@ Since you're on macOS, you'll need to use Docker or a Linux VM to build the ISO.
 ### Option 1: Docker (Recommended for macOS)
 
 ```bash
-# Make sure Docker is installed and running
-docker --version
+# Install Docker Desktop
+brew install --cask docker
 
-# Build using Docker
-docker-compose up scorelabs-build
+# Build ScoreLabs ISO
+./scripts/build-in-container.sh
+
+# Test in QEMU
+./scripts/test-in-vm.sh
 ```
 
 ### Option 2: Linux VM
