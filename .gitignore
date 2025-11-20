@@ -1,0 +1,62 @@
+# Build artifacts
+build/output/
+*.iso
+*.img
+*.qcow2
+
+# Arch build files
+*.pkg.tar.zst
+*.pkg.tar.xz
+src/
+pkg/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Virtual machine files
+*.vmdk
+*.vdi
+*.vbox
+*.vagrant
+
+# Sandbox runtime data
+sandbox/runtime/*
+!sandbox/runtime/.gitkeep
+labs/runtime/*
+!labs/runtime/.gitkeep
+
+# SSH keys and secrets
+*.key
+*.pem
+secrets/
+.env
+
+# Cache
+.cache/
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*

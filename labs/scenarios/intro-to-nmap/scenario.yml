@@ -1,0 +1,153 @@
+name: "Introduction to Network Scanning"
+version: "1.0"
+difficulty: beginner
+duration: 30
+author: "ScoreLabs Team"
+categories:
+  - network
+  - reconnaissance
+  - nmap
+
+description: |
+  Learn the fundamentals of network scanning using Nmap. This lab introduces
+  you to basic network reconnaissance techniques including host discovery,
+  port scanning, service detection, and OS fingerprinting.
+
+objectives:
+  - Understand the purpose and ethics of network scanning
+  - Learn Nmap command syntax and common options
+  - Discover live hosts on a network
+  - Identify open ports and running services
+  - Detect operating systems and service versions
+  - Understand scan timing and stealth techniques
+
+environment:
+  type: docker-compose
+  network: 10.0.100.0/24
+  services:
+    - name: web-server
+      ip: 10.0.100.10
+      ports: [80, 443, 22]
+      os: ubuntu-20.04
+    - name: database
+      ip: 10.0.100.11
+      ports: [3306, 22]
+      os: ubuntu-20.04
+    - name: file-server
+      ip: 10.0.100.12
+      ports: [21, 22, 139, 445]
+      os: ubuntu-18.04
+    - name: router
+      ip: 10.0.100.1
+      ports: [23, 80, 443]
+      os: cisco-ios
+
+prerequisites:
+  - Basic Linux command line knowledge
+  - Understanding of TCP/IP networking
+  - Familiarity with ports and services
+
+tools:
+  - nmap
+  - netcat
+  - ping
+  - traceroute
+
+tasks:
+  - id: 1
+    title: "Host Discovery"
+    description: "Identify all live hosts on the 10.0.100.0/24 network"
+    points: 100
+    flag_format: "flag{number_of_hosts}"
+    hint: "Use nmap's ping scan (-sn) to find live hosts"
+    
+  - id: 2
+    title: "Web Server Analysis"
+    description: "Scan the web server and identify the web server software and version"
+    points: 150
+    flag_format: "flag{server_name/version}"
+    hint: "Use service version detection (-sV) on the web server"
+    
+  - id: 3
+    title: "Port Discovery"
+    description: "Find the hidden service running on a high port (>10000) on the database server"
+    points: 200
+    flag_format: "flag{port_number:service_name}"
+    hint: "Scan all ports with -p-"
+    
+  - id: 4
+    title: "OS Detection"
+    description: "Identify the operating system of the file server"
+    points: 150
+    flag_format: "flag{os_name_version}"
+    hint: "Use OS detection (-O) with sudo/root privileges"
+    
+  - id: 5
+    title: "Stealth Scanning"
+    description: "Perform a stealthy SYN scan without completing the TCP handshake"
+    points: 200
+    flag_format: "flag{scan_technique}"
+    hint: "Use -sS flag for SYN stealth scan"
+
+flags:
+  - task: 1
+    value: "flag{4}"
+    validation: "count_hosts"
+  - task: 2
+    value: "flag{nginx/1.18.0}"
+    validation: "regex"
+  - task: 3
+    value: "flag{12345:mongodb}"
+    validation: "exact"
+  - task: 4
+    value: "flag{Ubuntu_18.04}"
+    validation: "regex"
+  - task: 5
+    value: "flag{SYN_stealth}"
+    validation: "exact"
+
+hints:
+  - level: 1
+    text: "Start with basic host discovery using 'nmap -sn 10.0.100.0/24'"
+  - level: 2
+    text: "Service version detection requires '-sV' flag"
+  - level: 3
+    text: "To scan all 65535 ports, use '-p-' or '-p 1-65535'"
+  - level: 4
+    text: "OS detection requires root privileges: 'sudo nmap -O target'"
+  - level: 5
+    text: "SYN scan is the default when run as root, but explicitly use '-sS'"
+
+resources:
+  - name: "Nmap Cheat Sheet"
+    path: "resources/nmap-cheatsheet.pdf"
+  - name: "Network Diagram"
+    path: "resources/network-diagram.png"
+  - name: "Reference Documentation"
+    path: "resources/nmap-documentation.md"
+
+scoring:
+  total_points: 800
+  passing_score: 400
+  time_bonus: true
+  time_penalty: false
+
+completion_message: |
+  Congratulations! You've completed the Introduction to Network Scanning lab.
+  
+  You've learned:
+  ✓ How to discover live hosts
+  ✓ Port scanning techniques
+  ✓ Service and version detection
+  ✓ OS fingerprinting
+  ✓ Stealth scanning methods
+  
+  Next steps:
+  - Try the Advanced Nmap lab
+  - Explore network vulnerability scanning
+  - Learn about Nmap Scripting Engine (NSE)
+
+next_labs:
+  - "advanced-nmap"
+  - "network-vulnerability-scanning"
+  - "nse-scripting"

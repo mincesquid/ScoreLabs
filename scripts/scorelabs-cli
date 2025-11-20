@@ -1,0 +1,254 @@
+#!/bin/bash
+# ScoreLabs CLI - Command-line interface for managing the distribution
+
+set -e
+
+VERSION="1.0.0"
+CONFIG_DIR="/etc/scorelabs"
+DATA_DIR="/var/lib/scorelabs"
+SANDBOX_DIR="${DATA_DIR}/sandbox"
+LABS_DIR="${DATA_DIR}/labs"
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+# Tool suites
+declare -A TOOL_SUITES=(
+    ["forensics"]="autopsy sleuthkit volatility3 binwalk foremost exiftool"
+    ["pentesting"]="nmap metasploit burpsuite sqlmap nikto gobuster"
+    ["wireless"]="aircrack-ng wifite reaver bully"
+    ["password"]="hashcat john hydra medusa crunch"
+    ["reversing"]="radare2 ghidra gdb binwalk strace"
+    ["web"]="burpsuite zaproxy ffuf nikto wpscan"
+    ["network"]="wireshark-qt nmap masscan tcpdump ettercap"
+)
+
+show_banner() {
+    echo -e "${BLUE}"
+    cat << "EOF"
+   ____                      _          _         
+  / ___|  ___ ___  _ __ ___| |    __ _| |__  ___ 
+  \___ \ / __/ _ \| '__/ _ \ |   / _` | '_ \/ __|
+   ___) | (_| (_) | | |  __/ |__| (_| | |_) \__ \
+  |____/ \___\___/|_|  \___|_____\__,_|_.__/|___/
+                                                  
+EOF
+    echo -e "${NC}  Security Distribution v${VERSION}${NC}"
+    echo ""
+}
+
+show_help() {
+    show_banner
+    cat << EOF
+Usage: scorelabs-cli [COMMAND] [OPTIONS]
+
+Commands:
+  install [--suite NAME]    Install tools or tool suites
+  sandbox [COMMAND]         Manage sandboxed environments
+  lab [COMMAND]             Manage lab scenarios
+  update                    Update system and tools
+  info                      Show system information
+  list                      List available suites and labs
+  help                      Show this help message
+
+Suite Installation:
+  scorelabs-cli install --suite forensics
+  scorelabs-cli install --suite pentesting
+  scorelabs-cli install --suite wireless
+
+Sandbox Commands:
+  scorelabs-cli sandbox create NAME    Create new sandbox
+  scorelabs-cli sandbox list          List sandboxes
+  scorelabs-cli sandbox start NAME    Start sandbox
+  scorelabs-cli sandbox stop NAME     Stop sandbox
+  scorelabs-cli sandbox delete NAME   Delete sandbox
+
+Lab Commands:
+  scorelabs-cli lab list              List available labs
+  scorelabs-cli lab start NAME        Start lab scenario
+  scorelabs-cli lab stop NAME         Stop lab scenario
+  scorelabs-cli lab reset NAME        Reset lab to initial state
+
+Examples:
+  scorelabs-cli install --suite forensics
+  scorelabs-cli sandbox create test-env
+  scorelabs-cli lab start malware-analysis-101
+
+EOF
+}
+
+list_suites() {
+    echo -e "${GREEN}Available Tool Suites:${NC}\n"
+    for suite in "${!TOOL_SUITES[@]}"; do
+        echo -e "${BLUE}$suite${NC}"
+        echo "  Tools: ${TOOL_SUITES[$suite]}"
+        echo ""
+    done
+}
+
+install_suite() {
+    local suite=$1
+    
+    if [ -z "$suite" ]; then
+        echo -e "${RED}Error: Suite name required${NC}"
+        echo "Usage: scorelabs-cli install --suite NAME"
+        echo ""
+        list_suites
+        exit 1
+    fi
+    
+    if [ -z "${TOOL_SUITES[$suite]}" ]; then
+        echo -e "${RED}Error: Unknown suite '$suite'${NC}"
+        list_suites
+        exit 1
+    fi
+    
+    echo -e "${GREEN}Installing suite: $suite${NC}"
+    echo "Tools: ${TOOL_SUITES[$suite]}"
+    echo ""
+    
+    # Install packages
+    sudo pacman -Sy --needed ${TOOL_SUITES[$suite]}
+    
+    echo -e "${GREEN}Suite '$suite' installed successfully${NC}"
+}
+
+sandbox_create() {
+    local name=$1
+    
+    if [ -z "$name" ]; then
+        echo -e "${RED}Error: Sandbox name required${NC}"
+        exit 1
+    fi
+    
+    echo -e "${GREEN}Creating sandbox: $name${NC}"
+    
+    # Create sandbox directory
+    sudo mkdir -p "${SANDBOX_DIR}/${name}"
+    
+    # TODO: Implement container/VM creation
+    echo -e "${YELLOW}Sandbox creation is a placeholder${NC}"
+    echo "Directory created at: ${SANDBOX_DIR}/${name}"
+}
+
+sandbox_list() {
+    echo -e "${GREEN}Available Sandboxes:${NC}\n"
+    
+    if [ -d "$SANDBOX_DIR" ]; then
+        ls -1 "$SANDBOX_DIR" 2>/dev/null || echo "No sandboxes found"
+    else
+        echo "No sandboxes found"
+    fi
+}
+
+lab_list() {
+    echo -e "${GREEN}Available Lab Scenarios:${NC}\n"
+    
+    if [ -d "$LABS_DIR" ]; then
+        for lab in "$LABS_DIR"/*; do
+            if [ -d "$lab" ]; then
+                local name=$(basename "$lab")
+                echo -e "${BLUE}$name${NC}"
+                
+                if [ -f "$lab/README.md" ]; then
+                    head -n 3 "$lab/README.md" | tail -n 1
+                fi
+                echo ""
+            fi
+        done
+    else
+        echo "No labs found"
+        echo "Labs should be located in: $LABS_DIR"
+    fi
+}
+
+system_info() {
+    show_banner
+    
+    echo -e "${GREEN}System Information:${NC}\n"
+    echo "Kernel: $(uname -r)"
+    echo "Architecture: $(uname -m)"
+    echo "Hostname: $(hostname)"
+    echo ""
+    
+    echo -e "${GREEN}ScoreLabs Configuration:${NC}\n"
+    echo "Config Directory: $CONFIG_DIR"
+    echo "Data Directory: $DATA_DIR"
+    echo "Sandbox Directory: $SANDBOX_DIR"
+    echo "Labs Directory: $LABS_DIR"
+    echo ""
+    
+    echo -e "${GREEN}Installed Tool Suites:${NC}\n"
+    # TODO: Track installed suites
+    echo "Not yet implemented"
+}
+
+# Main command dispatcher
+main() {
+    case "$1" in
+        install)
+            shift
+            if [ "$1" == "--suite" ]; then
+                install_suite "$2"
+            else
+                echo -e "${RED}Error: Invalid install command${NC}"
+                echo "Usage: scorelabs-cli install --suite NAME"
+                exit 1
+            fi
+            ;;
+        sandbox)
+            shift
+            case "$1" in
+                create) sandbox_create "$2" ;;
+                list) sandbox_list ;;
+                start|stop|delete)
+                    echo -e "${YELLOW}Sandbox $1 not yet implemented${NC}"
+                    ;;
+                *)
+                    echo -e "${RED}Error: Unknown sandbox command${NC}"
+                    show_help
+                    exit 1
+                    ;;
+            esac
+            ;;
+        lab)
+            shift
+            case "$1" in
+                list) lab_list ;;
+                start|stop|reset)
+                    echo -e "${YELLOW}Lab $1 not yet implemented${NC}"
+                    ;;
+                *)
+                    echo -e "${RED}Error: Unknown lab command${NC}"
+                    show_help
+                    exit 1
+                    ;;
+            esac
+            ;;
+        update)
+            echo -e "${GREEN}Updating system...${NC}"
+            sudo pacman -Syu
+            ;;
+        info)
+            system_info
+            ;;
+        list)
+            list_suites
+            echo ""
+            lab_list
+            ;;
+        help|--help|-h)
+            show_help
+            ;;
+        *)
+            show_help
+            ;;
+    esac
+}
+
+# Run main function
+main "$@"

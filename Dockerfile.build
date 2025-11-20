@@ -1,0 +1,21 @@
+FROM archlinux:latest
+
+# Update system and install build dependencies
+RUN pacman -Syu --noconfirm && \
+    pacman -S --noconfirm \
+    archiso \
+    squashfs-tools \
+    git \
+    base-devel \
+    && pacman -Scc --noconfirm
+
+# Create working directory
+WORKDIR /workspace
+
+# Set up permissions
+RUN useradd -m -G wheel builder && \
+    echo "builder ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+USER builder
+
+CMD ["/bin/bash"]

@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  scorelabs-build:
+    build:
+      context: .
+      dockerfile: Dockerfile.build
+    image: scorelabs-builder
+    volumes:
+      - .:/workspace
+      - build-cache:/var/cache/pacman
+    working_dir: /workspace
+    command: ./build.sh
+
+  scorelabs-test:
+    image: scorelabs-builder
+    volumes:
+      - ./build/output:/iso:ro
+    command: qemu-system-x86_64 -boot d -cdrom /iso/scorelabs.iso -m 2048
+
+volumes:
+  build-cache:

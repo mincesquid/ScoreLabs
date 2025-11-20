@@ -1,0 +1,86 @@
+# ScoreLabs Configuration
+# Main configuration file for the distribution
+
+version: "1.0.0"
+distribution:
+  name: "ScoreLabs"
+  base: "Arch Linux"
+  architecture: "x86_64"
+  
+# Default user
+user:
+  name: "scorelabs"
+  shell: "/bin/zsh"
+  groups:
+    - wheel
+    - docker
+    - wireshark
+    
+# Desktop environment
+desktop:
+  enabled: true
+  environment: "xfce4"
+  display_manager: "lightdm"
+  theme: "scorelabs-dark"
+  
+# Security settings
+security:
+  firewall:
+    enabled: true
+    default_policy: "drop"
+  
+  selinux:
+    enabled: false
+  
+  hardening:
+    kernel_params: true
+    secure_boot: false
+    
+# Tool suites (auto-install on build)
+tools:
+  auto_install:
+    - base-system
+    - networking
+  
+  optional:
+    - forensics
+    - pentesting
+    - wireless
+    - password
+    - reversing
+    - web
+    
+# Sandbox configuration
+sandbox:
+  default_type: "container"
+  storage_path: "/var/lib/scorelabs/sandbox"
+  network_isolation: true
+  resource_limits:
+    memory: "2048M"
+    cpu: 2
+    disk: "20G"
+    
+# Lab configuration
+labs:
+  storage_path: "/var/lib/scorelabs/labs"
+  auto_cleanup: false
+  snapshot_enabled: true
+  
+# Update settings
+updates:
+  auto_update: false
+  check_interval: "daily"
+  mirror_country: "US"
+  
+# Logging
+logging:
+  level: "info"
+  path: "/var/log/scorelabs"
+  rotate: true
+  max_size: "100M"
+  
+# Network configuration
+network:
+  default_interface: "auto"
+  vpn_autostart: false
+  tor_enabled: false
