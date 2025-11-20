@@ -111,7 +111,7 @@ build_iso() {
 }
 
 cleanup() {
-    if [ "$1" == "--clean" ]; then
+    if [ "$1" = "--clean" ]; then
         log_info "Cleaning build directories..."
         sudo rm -rf "$WORK_DIR"
         log_info "Cleanup complete"
@@ -137,12 +137,12 @@ main() {
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     
     # Parse arguments
-    if [ "$1" == "--clean" ]; then
+    if [ "$1" = "--clean" ]; then
         cleanup --clean
         exit 0
     fi
     
-    if [ "$1" == "--test" ]; then
+    if [ "$1" = "--test" ]; then
         log_info "Running in test mode (dry run)"
         check_dependencies
         setup_build_environment

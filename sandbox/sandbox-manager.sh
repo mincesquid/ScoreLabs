@@ -104,7 +104,7 @@ start_vm() {
         -smp 2 \
         -drive file="$sandbox_path/disk.qcow2,format=qcow2" \
         -net nic -net user \
-        -monitor unix:"$sandbox_path/monitor.sock,server,nowait" \
+        -monitor unix:$sandbox_path/monitor.sock,server,nowait \
         -daemonize \
         -pidfile "$sandbox_path/qemu.pid"
     
@@ -139,7 +139,7 @@ list_sandboxes() {
 # Main execution
 case "$1" in
     create)
-        if [ "$2" == "--type" ] && [ "$3" == "vm" ]; then
+        if [ "$2" = "--type" ] && [ "$3" = "vm" ]; then
             create_vm_sandbox "$4" "${5:-20G}"
         else
             create_container_sandbox "$2"

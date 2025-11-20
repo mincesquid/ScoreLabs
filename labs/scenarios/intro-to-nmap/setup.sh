@@ -36,7 +36,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     ports:
       - "27017:27017"
-      - "12345:12345"  # Hidden service
+
 
   file-server:
     image: ubuntu:18.04

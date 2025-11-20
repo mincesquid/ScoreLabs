@@ -11,9 +11,9 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 
 # Test 1: Check if ISO exists
 echo "[TEST] Checking for ISO file..."
-if ls $ISO_PATH 1> /dev/null 2>&1; then
+if ls "$ISO_PATH" 1> /dev/null 2>&1; then
     echo "✓ ISO file found"
-    ISO_FILE=$(ls $ISO_PATH | head -n 1)
+    ISO_FILE=$(ls "$ISO_PATH" | head -n 1)
     echo "  File: $ISO_FILE"
     echo "  Size: $(du -h "$ISO_FILE" | cut -f1)"
 else
@@ -37,7 +37,7 @@ else
 fi
 
 # Test 3: Launch QEMU test (optional)
-if [ "$1" == "--run-vm" ]; then
+if [ "$1" = "--run-vm" ]; then
     echo ""
     echo "[TEST] Launching test VM..."
     

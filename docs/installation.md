@@ -59,6 +59,40 @@ docker run -it --privileged \
   bash -c "pacman -Syu --noconfirm archiso && cd /workspace && ./build.sh"
 ```
 
+### Using Podman or Docker on macOS
+
+If you see an error such as:
+
+```
+Failed to get networks: Error: Command failed: podman network ls --format "{{.Name}}|{{.Driver}}"
+/bin/sh: podman: command not found
+```
+
+This means the environment expects Podman to be installed. On macOS you can:
+
+- Install Podman with Homebrew (then initialize a VM):
+
+```bash
+brew install podman
+podman machine init
+podman machine start
+# verify networks
+podman network ls
+```
+
+- Or use Docker Desktop for macOS (recommended for macOS users):
+
+   1. Install Docker Desktop from https://www.docker.com
+   2. Start Docker Desktop and verify with `docker info`
+   3. Replace podman calls with `docker` if needed, or use the helper script below.
+
+We included a helper script that detects which engine is available and lists networks:
+
+```bash
+chmod +x scripts/detect-networks.sh
+./scripts/detect-networks.sh
+```
+
 ## Creating Bootable Media
 
 ### Using dd (Linux/macOS)

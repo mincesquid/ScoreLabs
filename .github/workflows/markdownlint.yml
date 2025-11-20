@@ -1,0 +1,26 @@
+name: Markdown Lint
+
+on:
+  push:
+    paths:
+      - '**/*.md'
+  pull_request:
+    paths:
+      - '**/*.md'
+
+jobs:
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install markdownlint CLI
+        run: npm install -g markdownlint-cli
+      - name: Run markdownlint
+        run: |
+          set -e
+          echo "Running markdownlint on repo..."
+          markdownlint "**/*.md"
