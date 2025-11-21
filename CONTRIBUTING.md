@@ -20,17 +20,27 @@ Thank you for your interest in contributing to ScoreLabs! This document provides
    cd scorelabs
    ```
 
-2. **Create a Branch**
+2. **Configure Git (Important!)**
+   
+   Ensure your git remote is configured to fetch all branches:
+   ```bash
+   git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+   git fetch origin
+   ```
+   
+   This allows you to see and merge changes from all branches, including OS assets and feature branches.
+
+3. **Create a Branch**
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
-3. **Make Your Changes**
+4. **Make Your Changes**
    - Follow the coding standards below
    - Test your changes thoroughly
    - Update documentation as needed
 
-4. **Submit a Pull Request**
+5. **Submit a Pull Request**
    - Provide a clear description of changes
    - Reference any related issues
    - Ensure all tests pass
