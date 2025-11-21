@@ -12,6 +12,9 @@ linux-headers
 grub
 efibootmgr
 os-prober
+syslinux
+memtest86+
+memtest86+-efi
 
 # Networking
 networkmanager
@@ -29,7 +32,7 @@ nano
 tmux
 htop
 btop
-neofetch
+fastfetch
 man-db
 man-pages
 tree
@@ -38,7 +41,7 @@ curl
 rsync
 unzip
 zip
-p7zip
+7zip
 
 # Development Tools
 gcc
@@ -58,7 +61,7 @@ dnsenum
 dnsrecon
 fierce
 whois
-netcat
+gnu-netcat
 socat
 tcpdump
 wireshark-cli
@@ -74,16 +77,13 @@ metasploit
 burpsuite
 zaproxy
 gobuster
-dirb
-ffuf
+feroxbuster
 
 # Security Tools - Password Attacks
 hashcat
 john
 hydra
 medusa
-crunch
-
 # Security Tools - Wireless
 aircrack-ng
 reaver
@@ -92,15 +92,13 @@ wifite
 
 # Security Tools - Exploitation
 exploitdb
-searchsploit
 
 # Security Tools - Forensics
-autopsy
 sleuthkit
 binwalk
 foremost
 volatility3
-exiftool
+perl-image-exiftool
 
 # Security Tools - Reverse Engineering
 radare2
@@ -112,15 +110,11 @@ ltrace
 # Security Tools - Sniffing & Spoofing
 ettercap
 dsniff
-arpspoof
 bettercap
 
 # Security Tools - Social Engineering
-set
-
 # Security Tools - Post Exploitation
-powershell
-empire
+impacket
 
 # Monitoring & Analysis
 iftop

@@ -631,13 +631,13 @@ setup_plasma_look_and_feel() {
 name=breeze-dark
 
 [Wallpapers]
-usersWallpapers=/usr/share/wallpapers/SecureGlitch/
+usersWallpapers=/usr/share/wallpapers/SecureGlitch/glitch-default.svg
 EOF
 
     cat > /etc/skel/.config/kscreenlockerrc << EOF
 [Greeter][Wallpaper][org.kde.image][General]
-Image=/usr/share/wallpapers/SecureGlitch/glitch-lock.jpg
-PreviewImage=/usr/share/wallpapers/SecureGlitch/glitch-lock.jpg
+Image=/usr/share/wallpapers/SecureGlitch/glitch-lock.svg
+PreviewImage=/usr/share/wallpapers/SecureGlitch/glitch-lock.svg
 
 [Daemon]
 Autolock=true

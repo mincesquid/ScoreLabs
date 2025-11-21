@@ -38,7 +38,7 @@ log_error() {
 check_dependencies() {
     log_info "Checking dependencies..."
     
-    local deps=("archiso" "pacman" "mksquashfs")
+    local deps=("mkarchiso" "pacman" "mksquashfs")
     local missing=()
     
     for dep in "${deps[@]}"; do

@@ -6,6 +6,17 @@ Welcome to ScoreLabs development! This guide will get you up and running quickly
 
 Since you're on macOS, you'll need to use Docker or a Linux VM to build the ISO.
 
+### Git Configuration (Important!)
+
+Before you start, ensure your git repository is properly configured:
+
+```bash
+# Run the setup script to configure git
+./scripts/setup-git.sh
+```
+
+This ensures you can fetch and merge all branches, including OS assets and feature branches.
+
 ### Option 1: Docker (Recommended for macOS)
 
 ```bash

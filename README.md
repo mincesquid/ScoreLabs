@@ -26,6 +26,16 @@ At its core, ScoreLabs introduces a **unique sandboxing and simulation system** 
 
 ## 🚀 Quick Start
 
+### Setup Git Configuration
+
+**Important**: Before working with the repository, configure git properly:
+
+```bash
+./scripts/setup-git.sh
+```
+
+This ensures you can fetch and merge all branches, including OS assets and feature branches.
+
 ### Download & Build
 
 See [HOWTODOWNLOAD.md](HOWTODOWNLOAD.md) for detailed download and build instructions.

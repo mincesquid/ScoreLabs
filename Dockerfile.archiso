@@ -1,5 +1,5 @@
 # Dockerfile for building ScoreLabs ISO in a container
-FROM archlinux:latest
+FROM --platform=linux/amd64 archlinux:latest
 
 # Update system and install build dependencies
 RUN pacman -Syu --noconfirm && \
