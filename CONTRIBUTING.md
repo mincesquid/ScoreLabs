@@ -30,6 +30,13 @@ Thank you for your interest in contributing to ScoreLabs! This document provides
    This allows you to see and merge changes from all branches, including OS assets and feature branches.
    
    See [Git Workflow FAQ](docs/git-workflow-faq.md) for common git scenarios and solutions.
+   Ensure your git remote is configured to fetch all branches:
+   ```bash
+   git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+   git fetch origin
+   ```
+   
+   This allows you to see and merge changes from all branches, including OS assets and feature branches.
 
 3. **Create a Branch**
    ```bash
