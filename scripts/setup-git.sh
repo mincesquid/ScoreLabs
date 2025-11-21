@@ -62,6 +62,24 @@ git fetch origin
 echo ""
 echo -e "${GREEN}✓ Setup complete!${NC}"
 echo ""
+
+# Check if user has a local main branch
+if ! git rev-parse --verify main > /dev/null 2>&1; then
+    if git rev-parse --verify origin/main > /dev/null 2>&1; then
+        echo -e "${YELLOW}Note: You don't have a local 'main' branch.${NC}"
+        echo ""
+        read -p "Create a local 'main' branch from origin/main? [Y/n] " -n 1 -r
+        echo ""
+        
+        if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+            git checkout -b main origin/main
+            echo -e "${GREEN}✓ Created local 'main' branch${NC}"
+            echo ""
+            git checkout -
+        fi
+    fi
+fi
+
 echo "You can now see all available branches:"
 echo "  git branch -a"
 echo ""

@@ -22,13 +22,14 @@ Thank you for your interest in contributing to ScoreLabs! This document provides
 
 2. **Configure Git (Important!)**
    
-   Ensure your git remote is configured to fetch all branches:
+   Run the setup script to ensure proper git configuration:
    ```bash
-   git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-   git fetch origin
+   ./scripts/setup-git.sh
    ```
    
    This allows you to see and merge changes from all branches, including OS assets and feature branches.
+   
+   See [Git Workflow FAQ](docs/git-workflow-faq.md) for common git scenarios and solutions.
 
 3. **Create a Branch**
    ```bash
@@ -171,6 +172,7 @@ By contributing, you agree that:
 
 ## 📞 Getting Help
 
+- **Git Issues**: See [Git Workflow FAQ](docs/git-workflow-faq.md) and [Git Troubleshooting](docs/git-troubleshooting.md)
 - **Documentation**: Check the docs/ directory
 - **Discussions**: Join GitHub Discussions
 - **Chat**: Join our community chat (link in README)
