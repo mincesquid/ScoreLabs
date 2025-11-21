@@ -19,31 +19,42 @@ check_root() {
     fi
 }
 
+install_if_available() {
+    local packages=("$@")
+    local available=()
+
+    for pkg in "${packages[@]}"; do
+        if pacman -Si "$pkg" >/dev/null 2>&1; then
+            available+=("$pkg")
+        else
+            echo "[!] Skipping $pkg (not in repositories)"
+        fi
+    done
+
+    if [ ${#available[@]} -gt 0 ]; then
+        pacman -S --needed --noconfirm "${available[@]}"
+    fi
+}
+
 install_dependencies() {
     echo "[*] Installing KDE and security dependencies..."
-    pacman -S --needed --noconfirm \
+    install_if_available \
         plasma-meta \
         kde-applications-meta \
         kvantum \
-        latte-dock \
-        kwin-effects-cube \
-        kwin-scripts-forceblur \
         papirus-icon-theme \
         ttf-fira-code \
         ttf-hack \
         audit \
-        auditd \
-        aide \
         clamav \
         rkhunter \
-        chkrootkit \
         firejail \
         apparmor \
         lynis \
         unhide \
-        tiger \
         checksec \
-        fail2ban
+        fail2ban \
+        fastfetch
 }
 
 setup_file_auditing() {
