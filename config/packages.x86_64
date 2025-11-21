@@ -57,11 +57,8 @@ npm
 nmap
 masscan
 rustscan
-dnsenum
-dnsrecon
-fierce
 whois
-gnu-netcat
+openbsd-netcat
 socat
 tcpdump
 wireshark-cli
@@ -74,10 +71,8 @@ wpscan
 metasploit
 
 # Security Tools - Web Application
-burpsuite
 zaproxy
 gobuster
-feroxbuster
 
 # Security Tools - Password Attacks
 hashcat
@@ -134,9 +129,6 @@ docker-compose
 plasma-meta
 kde-applications-meta
 kvantum
-latte-dock
-kwin-effects-cube
-kwin-scripts-forceblur
 papirus-icon-theme
 sddm
 
@@ -177,15 +169,12 @@ flameshot
 # Additional Security Utilities
 lynis
 rkhunter
-chkrootkit
 clamav
 fail2ban
 audit
-aide
 firejail
 apparmor
 unhide
-tiger
 checksec
 ttf-fira-code
 ttf-hack
