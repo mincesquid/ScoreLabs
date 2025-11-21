@@ -72,10 +72,14 @@ if ! git rev-parse --verify main > /dev/null 2>&1; then
         echo ""
         
         if [[ ! $REPLY =~ ^[Nn]$ ]]; then
+            CURRENT_BRANCH=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
             git checkout -b main origin/main
             echo -e "${GREEN}✓ Created local 'main' branch${NC}"
             echo ""
-            git checkout -
+            # Only try to switch back if we were on a branch before
+            if [ -n "$CURRENT_BRANCH" ] && [ "$CURRENT_BRANCH" != "main" ]; then
+                git checkout "$CURRENT_BRANCH" 2>/dev/null || true
+            fi
         fi
     fi
 fi
